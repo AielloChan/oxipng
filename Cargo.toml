@@ -1,5 +1,5 @@
 [package]
-authors = ["Joshua Holmer <jholmer.in@gmail.com>"]
+authors = ["Joshua Holmer <jholmer.in@gmail.com>","Aiello Chan <aiello.chan@gmail.com>"]
 categories = [
     "command-line-utilities",
     "compression",
@@ -13,8 +13,8 @@ exclude = [
 ]
 homepage = "https://github.com/shssoichiro/oxipng"
 license = "MIT"
-name = "oxipng"
-repository = "https://github.com/shssoichiro/oxipng"
+name = "oxipng-wasm"
+repository = "https://github.com/aiellochan/oxipng"
 version = "2.2.2"
 
 [badges]
