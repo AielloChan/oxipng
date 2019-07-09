@@ -1,5 +1,4 @@
 use crate::atomicmin::AtomicMin;
-use crate::Deadline;
 use crate::PngError;
 use crate::PngResult;
 pub use cloudflare_zlib::is_supported;
@@ -20,7 +19,6 @@ pub(crate) fn cfzlib_deflate(
     strategy: u8,
     window_bits: u8,
     max_size: &AtomicMin,
-    deadline: &Deadline,
 ) -> PngResult<Vec<u8>> {
     let mut stream = Deflate::new(level.into(), strategy.into(), window_bits.into())?;
     stream.reserve(max_size.get().unwrap_or(data.len() / 2));
@@ -31,9 +29,6 @@ pub(crate) fn cfzlib_deflate(
     let chunk_size = (data.len() / 4).max(1 << 15).min(1 << 18); // 32-256KB
     for chunk in data.chunks(chunk_size) {
         stream.compress_with_limit(chunk, max_size)?;
-        if deadline.passed() {
-            return Err(PngError::TimedOut);
-        }
     }
     Ok(stream.finish()?)
 }
@@ -46,7 +41,6 @@ fn compress_test() {
         Z_DEFAULT_STRATEGY as u8,
         15,
         &AtomicMin::new(None),
-        &Deadline::new(None, false),
     )
     .unwrap();
     let res = crate::deflate::inflate(&vec).unwrap();

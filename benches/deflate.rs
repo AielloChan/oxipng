@@ -7,7 +7,6 @@ use std::path::PathBuf;
 use test::Bencher;
 
 use oxipng::internal_tests::*;
-use oxipng::Deadline;
 
 #[bench]
 fn deflate_16_bits_strategy_0(b: &mut Bencher) {
@@ -22,7 +21,6 @@ fn deflate_16_bits_strategy_0(b: &mut Bencher) {
             0,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -40,7 +38,6 @@ fn deflate_8_bits_strategy_0(b: &mut Bencher) {
             0,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -60,7 +57,6 @@ fn deflate_4_bits_strategy_0(b: &mut Bencher) {
             0,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -80,7 +76,6 @@ fn deflate_2_bits_strategy_0(b: &mut Bencher) {
             0,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -100,7 +95,6 @@ fn deflate_1_bits_strategy_0(b: &mut Bencher) {
             0,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -118,7 +112,6 @@ fn deflate_16_bits_strategy_1(b: &mut Bencher) {
             1,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -136,7 +129,6 @@ fn deflate_8_bits_strategy_1(b: &mut Bencher) {
             1,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -156,7 +148,6 @@ fn deflate_4_bits_strategy_1(b: &mut Bencher) {
             1,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -176,7 +167,6 @@ fn deflate_2_bits_strategy_1(b: &mut Bencher) {
             1,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -196,7 +186,6 @@ fn deflate_1_bits_strategy_1(b: &mut Bencher) {
             1,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -214,7 +203,6 @@ fn deflate_16_bits_strategy_2(b: &mut Bencher) {
             2,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -232,7 +220,6 @@ fn deflate_8_bits_strategy_2(b: &mut Bencher) {
             2,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -252,7 +239,6 @@ fn deflate_4_bits_strategy_2(b: &mut Bencher) {
             2,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -272,7 +258,6 @@ fn deflate_2_bits_strategy_2(b: &mut Bencher) {
             2,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -292,7 +277,6 @@ fn deflate_1_bits_strategy_2(b: &mut Bencher) {
             2,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -310,7 +294,6 @@ fn deflate_16_bits_strategy_3(b: &mut Bencher) {
             3,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -328,7 +311,6 @@ fn deflate_8_bits_strategy_3(b: &mut Bencher) {
             3,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -348,7 +330,6 @@ fn deflate_4_bits_strategy_3(b: &mut Bencher) {
             3,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -368,7 +349,6 @@ fn deflate_2_bits_strategy_3(b: &mut Bencher) {
             3,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }
@@ -388,7 +368,6 @@ fn deflate_1_bits_strategy_3(b: &mut Bencher) {
             3,
             15,
             &min,
-            &Deadline::new(None, false),
         )
     });
 }

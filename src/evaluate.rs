@@ -13,7 +13,6 @@ use crate::png::STD_WINDOW;
 use crate::rayon;
 #[cfg(not(feature = "parallel"))]
 use crate::rayon::prelude::*;
-use crate::Deadline;
 #[cfg(feature = "parallel")]
 use rayon;
 #[cfg(feature = "parallel")]
@@ -37,7 +36,6 @@ struct Candidate {
 
 /// Collect image versions and pick one that compresses best
 pub(crate) struct Evaluator {
-    deadline: Arc<Deadline>,
     nth: AtomicUsize,
     best_candidate_size: Arc<AtomicMin>,
     /// images are sent to the thread for evaluation
@@ -47,10 +45,9 @@ pub(crate) struct Evaluator {
 }
 
 impl Evaluator {
-    pub fn new(deadline: Arc<Deadline>) -> Self {
+    pub fn new() -> Self {
         let (tx, rx) = sync_channel(4);
         Self {
-            deadline,
             best_candidate_size: Arc::new(AtomicMin::new(None)),
             nth: AtomicUsize::new(0),
             eval_send: Some(tx),
@@ -80,7 +77,6 @@ impl Evaluator {
     fn try_image_inner(&self, image: Arc<PngImage>, bias: f32, is_reduction: bool) {
         let nth = self.nth.fetch_add(1, SeqCst);
         // These clones are only cheap refcounts
-        let deadline = self.deadline.clone();
         let best_candidate_size = self.best_candidate_size.clone();
         // sends it off asynchronously for compression,
         // but results will be collected via the message queue
@@ -93,16 +89,12 @@ impl Evaluator {
             // Instead, only update (atomic) best size in real time,
             // and the best result later without need for locks.
             filters_iter.for_each(|&filter| {
-                if deadline.passed() {
-                    return;
-                }
                 if let Ok(idat_data) = deflate::deflate(
                     &image.filter_image(filter),
                     STD_COMPRESSION,
                     STD_STRATEGY,
                     STD_WINDOW,
                     &best_candidate_size,
-                    &deadline,
                 ) {
                     best_candidate_size.set_min(idat_data.len());
                     // the rest is shipped to the evavluation/collection thread

@@ -181,11 +181,6 @@ fn main() {
             .help("Use the slower but better compressing Zopfli algorithm, overrides zlib-specific options")
             .short("Z")
             .long("zopfli"))
-        .arg(Arg::with_name("timeout")
-            .help("Maximum amount of time, in seconds, to spend on optimizations")
-            .takes_value(true)
-            .value_name("secs")
-            .long("timeout"))
         .arg(Arg::with_name("threads")
             .help("Set number of threads to use - default 1.5x CPU cores")
             .long("threads")
@@ -315,13 +310,6 @@ fn parse_opts_into_struct(
 
     if let Some(x) = matches.value_of("strategies") {
         opts.strategies = parse_numeric_range_opts(x, 0, 3).unwrap();
-    }
-
-    if let Some(x) = matches.value_of("timeout") {
-        let num = x
-            .parse()
-            .map_err(|_| "Timeout must be a number".to_owned())?;
-        opts.timeout = Some(Duration::from_secs(num));
     }
 
     match matches.value_of("window") {

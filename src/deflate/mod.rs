@@ -1,6 +1,5 @@
 use crate::atomicmin::AtomicMin;
 use crate::error::PngError;
-use crate::Deadline;
 use crate::PngResult;
 use miniz_oxide;
 use std::cmp::max;
@@ -32,12 +31,11 @@ pub(crate) fn deflate(
     zs: u8,
     zw: u8,
     max_size: &AtomicMin,
-    deadline: &Deadline,
 ) -> PngResult<Vec<u8>> {
     #[cfg(any(target_arch = "x86_64", target_arch = "aarch64"))]
     {
         if cfzlib::is_supported() {
-            return cfzlib::cfzlib_deflate(data, zc, zs, zw, max_size, deadline);
+            return cfzlib::cfzlib_deflate(data, zc, zs, zw, max_size);
         }
     }
 
