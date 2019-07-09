@@ -12,7 +12,6 @@ use std::collections::HashSet;
 use std::fs::DirBuilder;
 use std::path::PathBuf;
 use std::process::exit;
-use std::time::Duration;
 
 fn main() {
     let matches = App::new("oxipng")

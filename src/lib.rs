@@ -19,7 +19,6 @@ use std::fmt;
 use std::fs::{copy, File};
 use std::io::{stdin, stdout, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
 pub use crate::colors::AlphaOptim;
